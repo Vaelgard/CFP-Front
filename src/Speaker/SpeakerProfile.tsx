@@ -42,7 +42,7 @@ const SpeakerProfile = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined) => <Tag color={statusColors[status]}>{status}</Tag>,
+      render: (status: keyof typeof statusColors) => <Tag color={statusColors[status]}>{status}</Tag>,
     },
   ];
 
@@ -151,7 +151,9 @@ const SpeakerProfile = () => {
           </div>
 
           <Card className="col-span-3 shadow-lg rounded-2xl border border-gray-200" bordered={false}>
-            <Tabs defaultActiveKey="1"  tabBarStyle={{ backgroundColor: '#F7F4FA', borderRadius: '1rem', padding: '0.5rem 1rem' }}>
+            <Tabs defaultActiveKey="1" 
+             tabBarStyle={{ backgroundColor: '#F7F4FA', borderRadius: '1rem', padding: '0.5rem 1rem' }}
+            >
               <TabPane tab={<span className="font-semibold ">Speaker's Submission (20)</span>} key="1" >
                 <div className="flex items-center justify-between mb-4">
                   <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="w-1/3 rounded-md" />
