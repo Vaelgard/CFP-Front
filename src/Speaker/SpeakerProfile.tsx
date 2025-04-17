@@ -1,6 +1,6 @@
 import { Card, Tabs, Table, Button, Avatar, Tag, Input, Select } from 'antd';
 import { ArrowLeftOutlined, SearchOutlined, ReloadOutlined, SyncOutlined, UserOutlined, ExportOutlined } from '@ant-design/icons';
-import { ClassAttributes, HTMLAttributes, JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from 'react';
+import { ClassAttributes, HTMLAttributes} from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 const { TabPane } = Tabs;
