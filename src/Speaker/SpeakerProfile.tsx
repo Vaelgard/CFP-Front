@@ -1,12 +1,13 @@
 import { Card, Tabs, Table, Button, Avatar, Tag, Input, Select } from 'antd';
 import { ArrowLeftOutlined, SearchOutlined, ReloadOutlined, SyncOutlined, UserOutlined, ExportOutlined } from '@ant-design/icons';
-import { ClassAttributes, HTMLAttributes } from 'react';
+import { ClassAttributes, HTMLAttributes, useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
 
 const SpeakerProfile = () => {
+  const [showCard, setShowCard] = useState(false);
   const columnsSubmission = [
     { title: 'Session Title', dataIndex: 'session', key: 'session' },
     { title: 'Event Name', dataIndex: 'event', key: 'event' },
@@ -103,27 +104,34 @@ const SpeakerProfile = () => {
   return (
     <>
       <h1 className="text-2xl font-bold text-[#2e2e2e] ml-1 mb-4">Speaker Profile</h1>
-      <Card>
-        <div className="p-6 bg-[#f8f9fc] min-h-screen font-sans">
+      <Card style={{ height: 'calc(100vh - 100px)', overflow: 'auto' }}>
+
           <div className="flex items-center text-[#6c63ff] mb-4 cursor-pointer">
             <ArrowLeftOutlined className="mr-2" />
             <span className="text-md font-semibold">Back to speakers list</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="flex flex-col h-full">
-              <div className="mb-4">
-                <Card className="shadow-lg rounded-2xl border border-gray-200" bodyStyle={{ backgroundColor: '#F7F4FA' }}>
-                  <div className="flex items-center gap-4">
-                    <Avatar size={64} className="bg-[#6c63ff] text-white">Y</Avatar>
-                    <div>
-                      <div className="font-bold text-[#2e2e2e]">MERIAF Youness</div>
-                      <div className="text-sm text-gray-500">Full Stack Intern @ xHub</div>
-                    </div>
-                  </div>
-                </Card>
+          <div className="flex flex-col h-full">
+            <div className="mb-4">
+            <div className="mb-4 cursor-pointer" onClick={() => setShowCard(!showCard)}>
+            <Card
+              className="shadow-lg rounded-2xl border border-gray-200 transition duration-200 hover:shadow-xl"
+              bodyStyle={{ backgroundColor: '#F7F4FA' }}
+            >
+              <div className="flex items-center gap-4">
+                <Avatar size={64} className="bg-[#6c63ff] text-white">Y</Avatar>
+                <div>
+                  <div className="font-bold text-[#2e2e2e]">MERIAF Youness</div>
+                  <div className="text-sm text-gray-500">Full Stack Intern @ xHub</div>
+                </div>
               </div>
+            </Card>
+          </div>
 
+            </div>
+            {/* Conditionally Rendered Card */}
+            {showCard && (
               <Card className="shadow-lg rounded-2xl border border-gray-200 flex-grow p-4" bordered={false}>
                 <div className="flex flex-col items-start text-left space-y-4">
                   <h1 className='text-2xl font-bold'>Speaker Information</h1>
@@ -172,7 +180,9 @@ const SpeakerProfile = () => {
                   </div>
                 </div>
               </Card>
-            </div>
+            )}
+          </div>
+
 
             <div className="md:col-span-3">
               <Card className="shadow-lg rounded-2xl border border-gray-200" bordered={false}>
@@ -198,9 +208,9 @@ const SpeakerProfile = () => {
                   </TabPane>
 
                   <TabPane tab={<span className="font-semibold">Speaker's Events (15)</span>} key="2">
-                    <div className="flex flex-wrap md:flex-nowrap items-center justify-between mb-4 gap-4">
+                    <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
                       <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex gap-2">
                         <Select defaultValue="Event Status" className="w-40">
                           <Option value="Upcoming">Upcoming</Option>
                           <Option value="Current">Current</Option>
@@ -216,12 +226,11 @@ const SpeakerProfile = () => {
                         <Button icon={<SyncOutlined />} />
                       </div>
                     </div>
-                    <Table columns={columnsEvents} dataSource={dataEvents} pagination={{ pageSize: 10 }} components={customTableHeader} scroll={{ x: true }} />
+                    <Table columns={columnsEvents} dataSource={dataEvents} pagination={{ pageSize: 10 ,position: ['topRight'] }} components={customTableHeader} scroll={{ x: true }} />
                   </TabPane>
                 </Tabs>
               </Card>
             </div>
-          </div>
         </div>
       </Card>
     </>

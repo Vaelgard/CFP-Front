@@ -18,6 +18,7 @@ const Sidebar = () => (
   <Sider
     width={250}
     className="!bg-white min-h-screen shadow-md"
+
   >
    <div className="bg-[#f8f9fc] rounded-xl p-4 flex justify-center">
   <img
