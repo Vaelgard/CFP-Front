@@ -76,7 +76,7 @@ const menuItems = [
 const Sidebar = () => (
   <Sider width={250} className="!bg-white min-h-screen shadow-md">
     <div className="bg-[#f8f9fc] rounded-xl p-4 flex justify-center">
-      <img src="/CFP.png" alt="Logo" className="h-[60px] w-[100px] scale-250" />
+      <img src="/Profil.svg" alt="CFP Logo" className="h-[60px] w-[100px] scale-250" />
     </div>
 
     <div className="relative text-white px-4 py-5 bg-[url('/background.png')] bg-cover bg-center mb-5">
