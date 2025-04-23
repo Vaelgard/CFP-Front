@@ -7,7 +7,7 @@ import {
   columnsEvents,
   dataSubmission,
   dataEvents,
-  socialLinks, } from '../data/SpeakerProfileData';
+  socialLinks, } from '../data/speakerProfileData';
 const { TabPane } = Tabs;
 const interests = [
   "Ui/UX Design",
@@ -18,6 +18,7 @@ const interests = [
 
 const SpeakerProfile = () => {
   const [showCard, setShowCard] = useState(false);
+
   const customTableHeader = {
     header: {
       row: (props: JSX.IntrinsicAttributes & ClassAttributes<HTMLTableRowElement> & HTMLAttributes<HTMLTableRowElement>) => <tr {...props} className="bg-[#F7F4FA]" />,
@@ -133,15 +134,25 @@ const SpeakerProfile = () => {
              </Card>
             )}
           </div>
-
-
             <div className="md:col-span-3">
-              <Card className="shadow-lg rounded-2xl border border-gray-200" bordered={false}>
-                <Tabs defaultActiveKey="1" tabBarStyle={{ backgroundColor: '#F7F4FA', borderRadius: '1rem', padding: '0.5rem 1rem' }}>
-                  <TabPane tab={<span className="font-semibold">Speaker's Submission (20)</span>} key="1">
-                    <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
-                      <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
-                      <div className="flex gap-2">
+              <Card className="shadow-lg rounded-2xl border border-gray-200" >
+              <Tabs
+                type="card"
+                  defaultActiveKey="1"
+                  onChange={(key) => {
+                    console.log(key);
+                  }}
+                  tabBarStyle={{
+                    backgroundColor: '#F7F4FA',
+                    padding: '0.5rem 1rem',
+                    marginBottom: '1rem',
+                    border: 'none',
+                  }}
+              >
+                <TabPane tab={<span >Speaker's Submission (20)</span>} key="1">
+                  <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+                    <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
+                    <div className="flex gap-2">
                         <Select
                           defaultValue="Session format"
                           className="w-40"
@@ -160,7 +171,7 @@ const SpeakerProfile = () => {
                     <Table columns={columnsSubmission} dataSource={dataSubmission} pagination={{ pageSize: 10,position: ['topRight'] }} components={customTableHeader} scroll={{ x: true }} />
                   </TabPane>
 
-                  <TabPane tab={<span className="font-semibold">Speaker's Events (15)</span>} key="2">
+                  <TabPane tab={<span>Speaker's Events (15)</span>} key="2">
                     <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
                       <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
                       <div className="flex gap-2">
