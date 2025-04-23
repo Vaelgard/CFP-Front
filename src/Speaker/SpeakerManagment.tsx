@@ -5,6 +5,7 @@ import {
   Select,
   Button,
   Dropdown,
+  Modal,
 } from "antd";
 import {
   FilterOutlined,
@@ -12,7 +13,7 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 
-import { speakerData, speakerColumns, speakerMenuItems } from "../data/SpeakerManagementData";
+import { speakerData, getSpeakerColumns, speakerMenuItems, Speaker } from "../data/SpeakerManagementData";
 
 const { Search } = Input;
 
@@ -22,6 +23,20 @@ const SpeakerListCard = () => {
   const filteredData = statusFilter
     ? speakerData.filter((d) => d.status === statusFilter)
     : speakerData;
+  const [data, setData] = useState(speakerData);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
+  const handleBlockClick = (record: Speaker) => {
+    setSelectedSpeaker(record);
+    setIsModalVisible(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setData((prev) => prev.filter((item) => item.key !== selectedSpeaker?.key));
+    setIsModalVisible(false);
+  };
+  const columns = getSpeakerColumns(handleBlockClick);
+  
 
   return (
     <>
@@ -54,13 +69,26 @@ const SpeakerListCard = () => {
 
         <div className="max-h-[700px] overflow-y-auto">
           <Table
-            columns={speakerColumns}
+            columns={columns}
             dataSource={filteredData}
             pagination={false}
             rowSelection={{ type: "checkbox" }}
             scroll={{ x: true }}
             className="min-w-full"
           />
+          <Modal
+            title="Block speaker"
+            open={isModalVisible}
+            onOk={handleConfirmDelete}
+            onCancel={() => setIsModalVisible(false)}
+            okText="Continue"
+            cancelText="Cancel"
+            okButtonProps={{ style: { backgroundColor: "#5F4080" } }}    
+          >
+            <p>
+              If you block this speaker <strong>{selectedSpeaker?.fullName}</strong>, they wouldn’t be able to submit a proposal in this event ? 
+            </p>
+          </Modal>
         </div>
       </div>
     </>

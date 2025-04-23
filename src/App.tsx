@@ -6,6 +6,7 @@ import SpeakerProfile from "./Speaker/SpeakerProfile";
 import Sidebar from "./common/SideBar";
 import SpeakerManagement from "./Speaker/SpeakerManagment";
 import NotFoundPage from "./common/NotFoundPage";
+import SpeakerDashboardPage from "./Speaker/SpeakerDashBoardPage";
 
 const { Header, Sider, Content } = Layout;
 
@@ -52,9 +53,10 @@ const AppLayout = () => {
 
         <Content className="p-4">
           <Routes>
-            <Route path="/" element={<Navigate to="/profile" replace />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/profile" element={<SpeakerProfile />} />
             <Route path="/management" element={<SpeakerManagement />} />
+            <Route path="/dashboard" element={<SpeakerDashboardPage />} />
           </Routes>
         </Content>
       </Layout>
