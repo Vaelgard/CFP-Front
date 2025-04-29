@@ -19,6 +19,7 @@ const keyToRoute = {
   edit: '/profile',
   'speaker-manage': '/management',
   dashboard: '/dashboard',
+  'session-manage': '/sessionManagement',
 };
 
 const menuItems = [

@@ -7,7 +7,8 @@ import Sidebar from "./common/SideBar";
 import SpeakerManagement from "./Speaker/SpeakerManagment";
 import NotFoundPage from "./common/NotFoundPage";
 import SpeakerDashboardPage from "./Speaker/SpeakerDashBoardPage";
-
+import SpeakerSessionManagement from "./Speaker/SpeakerSessionManagement";
+import ServerError from "./common/ServerError";
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = () => {
@@ -18,6 +19,10 @@ const AppLayout = () => {
 
   if (isNotFound) {
     return <NotFoundPage />;
+  }
+  const serverError=location.pathname === "/500" || location.pathname === "*" || location.pathname.startsWith("/server-error");
+  if (serverError) {
+    return <ServerError />;
   }
 
   return (
@@ -57,6 +62,7 @@ const AppLayout = () => {
             <Route path="/profile" element={<SpeakerProfile />} />
             <Route path="/management" element={<SpeakerManagement />} />
             <Route path="/dashboard" element={<SpeakerDashboardPage />} />
+            <Route path="/sessionManagement" element={<SpeakerSessionManagement />} />
           </Routes>
         </Content>
       </Layout>

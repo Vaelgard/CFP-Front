@@ -24,6 +24,7 @@ const SpeakerProfile = () => {
       row: (props: JSX.IntrinsicAttributes & ClassAttributes<HTMLTableRowElement> & HTMLAttributes<HTMLTableRowElement>) => <tr {...props} className="bg-[#F7F4FA]" />,
     },
   };
+  const [activeKey, setActiveKey] = useState('1');
 
   return (
     <>
@@ -64,7 +65,7 @@ const SpeakerProfile = () => {
 
               <div className="text-sm text-gray-700 space-y-1 mb-4">
                 <p className="flex items-center gap-2">
-                  <MailOutlined className="text-purple-700" /> elmoudni112.safae@gmail.com
+                  <MailOutlined className="text-purple-700" /> youness.meriaf@gmail.com
                 </p>
                 <p className="flex items-center gap-2">
                   <PhoneOutlined className="text-purple-700" /> +212 6 44 55 55 55
@@ -137,19 +138,31 @@ const SpeakerProfile = () => {
             <div className="md:col-span-3">
               <Card className="shadow-lg rounded-2xl border border-gray-200" >
               <Tabs
-                type="card"
-                  defaultActiveKey="1"
-                  onChange={(key) => {
-                    console.log(key);
-                  }}
-                  tabBarStyle={{
-                    backgroundColor: '#F7F4FA',
-                    padding: '0.5rem 1rem',
-                    marginBottom: '1rem',
-                    border: 'none',
-                  }}
+                activeKey={activeKey}
+                onChange={(key) => setActiveKey(key)}
+                tabBarGutter={24}
+                className="[&_.ant-tabs-ink-bar]:hidden [&_.ant-tabs-nav]:mb-0"
+                renderTabBar={(props, DefaultTabBar) => (
+                  <DefaultTabBar
+                    {...props}
+                    className="!bg-[#F7F4FA] px-4 pt-2"
+                  />
+                )}
               >
-                <TabPane tab={<span >Speaker's Submission (20)</span>} key="1">
+                <TabPane
+                  key="1"
+                  tab={
+                    <div
+                      className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-all relative z-10 ${
+                        activeKey === '1'
+                          ? 'bg-white text-purple-700 shadow-sm'
+                          : 'text-gray-500'
+                      }`}
+                    >
+                      Speaker's Submission(20)
+                    </div>
+                  }
+                > 
                   <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
                     <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
                     <div className="flex gap-2">
@@ -170,8 +183,20 @@ const SpeakerProfile = () => {
                     </div>
                     <Table columns={columnsSubmission} dataSource={dataSubmission} pagination={{ pageSize: 10,position: ['topRight'] }} components={customTableHeader} scroll={{ x: true }} />
                   </TabPane>
-
-                  <TabPane tab={<span>Speaker's Events (15)</span>} key="2">
+                  <TabPane
+                    key="2"
+                    tab={
+                      <div
+                        className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-all relative z-10 ${
+                          activeKey === '2'
+                            ? 'bg-white text-purple-700 shadow-sm'
+                            : 'text-gray-500'
+                        }`}
+                      >
+                        Speaker's Events (15)
+                      </div>
+                    }
+                  > 
                     <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
                       <Input prefix={<SearchOutlined />} placeholder="Search by lorem..." className="md:w-1/3 w-full rounded-md" />
                       <div className="flex gap-2">

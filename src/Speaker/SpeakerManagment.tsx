@@ -59,10 +59,10 @@ const SpeakerListCard = () => {
                 { value: "Not informed", label: "Not informed" },
               ]}
             />
-            <Button icon={<FilterOutlined />}>Filter</Button>
-            <Button icon={<ReloadOutlined />} />
+            <Button type="default" style={{ background: '#EFEBF5' }}><FilterOutlined />Filter</Button>
+            <Button type="default" style={{ background: '#EFEBF5' }}><ReloadOutlined /></Button>
             <Dropdown menu={{ items: speakerMenuItems }} trigger={["hover"]}>
-              <Button icon={<MoreOutlined />} />
+            <Button type="default" style={{ background: '#EFEBF5' }}><MoreOutlined /></Button>
             </Dropdown>
           </div>
         </div>
