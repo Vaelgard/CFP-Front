@@ -1,8 +1,6 @@
+// speakerData.ts
 import { Avatar, Button } from "antd";
-import {
-  DownloadOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
+import { DownloadOutlined, EyeOutlined, MailOutlined, StopOutlined } from "@ant-design/icons";
 
 export interface Speaker {
   key: string;
@@ -17,7 +15,6 @@ export interface Speaker {
   status: string;
 }
 
-// Mock data
 export const speakerData: Speaker[] = Array.from({ length: 30 }).map((_, idx) => ({
   key: `${idx}`,
   avatar: "https://i.pravatar.cc/300?img=1",
@@ -31,8 +28,9 @@ export const speakerData: Speaker[] = Array.from({ length: 30 }).map((_, idx) =>
   status: idx % 3 === 0 ? "Informed" : "Not informed",
 }));
 
-// Table columns
-export const speakerColumns = [
+export const getSpeakerColumns = (
+  onDeleteClick: (record: Speaker) => void
+) => [
   {
     title: "AVATAR",
     dataIndex: "avatar",
@@ -84,30 +82,28 @@ export const speakerColumns = [
   {
     title: "ACTION",
     dataIndex: "action",
-    render: () => (
+    render: (_: any, record: Speaker) => (
       <>
-        <Button type="primary" className="mr-2.5">
-          View
+        <Button style={{ marginRight: 8 }}>
+          <EyeOutlined />
         </Button>
-        <Button type="primary" danger>
-          Delete
+        <Button onClick={() => onDeleteClick(record)}>
+          <StopOutlined />
         </Button>
       </>
     ),
   },
 ];
 
-// Dropdown menu
 export const speakerMenuItems = [
-    {
-      key: "export",
-      icon: <DownloadOutlined />,
-      label: "Export all speakers",
-    },
-    {
-      key: "inform",
-      icon: <MailOutlined />,
-      label: "Inform all speakers",
-    },
-  ];
-  
+  {
+    key: "export",
+    icon: <DownloadOutlined />,
+    label: "Export all speakers",
+  },
+  {
+    key: "inform",
+    icon: <MailOutlined />,
+    label: "Inform all speakers",
+  },
+];

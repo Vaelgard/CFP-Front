@@ -11,8 +11,16 @@ import {
   HomeOutlined,
   AppstoreOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;
+
+const keyToRoute = {
+  edit: '/profile',
+  'speaker-manage': '/management',
+  dashboard: '/dashboard',
+  'session-manage': '/sessionManagement',
+};
 
 const menuItems = [
   {
@@ -73,66 +81,82 @@ const menuItems = [
   { key: 'api-embed', label: 'API/Embed', icon: <ApiOutlined /> },
 ];
 
-const Sidebar = () => (
-  <Sider width={250} className="!bg-white min-h-screen shadow-md">
-    <div className="bg-[#f8f9fc] rounded-xl p-4 flex justify-center">
-      <img src="/CFP.png" alt="Logo" className="h-[60px] w-[100px] scale-250" />
-    </div>
+const Sidebar = () => {
+  const navigate = useNavigate();
 
-    <div className="relative text-white px-4 py-5 bg-[url('/background.png')] bg-cover bg-center mb-5">
-      <div className="flex items-center gap-3">
-        <Avatar size={48} className="bg-black">Y</Avatar>
-        <div>
-          <div className="text-base font-semibold leading-tight">MERIAF Youness</div>
-          <div className="text-xs leading-tight opacity-90">youness@x-hub.io</div>
-        </div>
+  const handleClick = (info: { key: string }) => {
+    const key = info.key as keyof typeof keyToRoute;
+    if (keyToRoute[key]) {
+      navigate(keyToRoute[key]);
+    }
+  };
+
+  return (
+    <Sider width={250} className="!bg-white min-h-screen shadow-md">
+      <div className="bg-[#f8f9fc] rounded-xl p-4 flex justify-center">
+        <img src="/Profil.svg" alt="CFP Logo" className="h-[60px] w-[100px] scale-250" />
       </div>
-      <div className="absolute top-4 right-4 text-white text-xl cursor-pointer">⋮</div>
-    </div>
 
-    <Menu mode="inline" defaultSelectedKeys={['edit']} className="mt-4 text-sm font-medium">
-      {menuItems.map((item) => {
-        if (item.type === 'group') {
-          return (
-            <Menu.ItemGroup
-              key={item.key}
-              title={<span className="text-xs text-gray-400">{item.title}</span>}
-            >
-              {item.items.map((subItem) => {
-                if (subItem.type === 'submenu') {
+      <div className="relative text-white px-4 py-5 bg-[url('/background.png')] bg-cover bg-center mb-5">
+        <div className="flex items-center gap-3">
+          <Avatar size={48} className="bg-black">Y</Avatar>
+          <div>
+            <div className="text-base font-semibold leading-tight">MERIAF Youness</div>
+            <div className="text-xs leading-tight opacity-90">youness@x-hub.io</div>
+          </div>
+        </div>
+        <div className="absolute top-4 right-4 text-white text-xl cursor-pointer">⋮</div>
+      </div>
+
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={['edit']}
+        onClick={handleClick}
+        className="mt-4 text-sm font-medium"
+      >
+        {menuItems.map((item) => {
+          if (item.type === 'group') {
+            return (
+              <Menu.ItemGroup
+                key={item.key}
+                title={<span className="text-xs text-gray-400">{item.title}</span>}
+              >
+                {item.items.map((subItem) => {
+                  if (subItem.type === 'submenu') {
+                    return (
+                      <Menu.SubMenu
+                        key={subItem.key}
+                        icon={subItem.icon}
+                        title={subItem.label}
+                      >
+                        {subItem.items.map((menu) => (
+                          <Menu.Item key={menu.key} className={menu.className}>
+                            {menu.label}
+                          </Menu.Item>
+                        ))}
+                      </Menu.SubMenu>
+                    );
+                  }
+
                   return (
-                    <Menu.SubMenu
-                      key={subItem.key}
-                      icon={subItem.icon}
-                      title={subItem.label}
-                    >
-                      {subItem.items.map((menu) => (
-                        <Menu.Item key={menu.key} className={menu.className}>
-                          {menu.label}
-                        </Menu.Item>
-                      ))}
-                    </Menu.SubMenu>
+                    <Menu.Item key={subItem.key} icon={subItem.icon} className={subItem.className}>
+                      {subItem.label}
+                    </Menu.Item>
                   );
-                }
+                })}
+              </Menu.ItemGroup>
+            );
+          }
 
-                return (
-                  <Menu.Item key={subItem.key} icon={subItem.icon} className={subItem.className}>
-                    {subItem.label}
-                  </Menu.Item>
-                );
-              })}
-            </Menu.ItemGroup>
+          return (
+            <Menu.Item key={item.key} icon={item.icon} className={item.className}>
+              {item.label}
+            </Menu.Item>
           );
-        }
-
-        return (
-          <Menu.Item key={item.key} icon={item.icon} className={item.className}>
-            {item.label}
-          </Menu.Item>
-        );
-      })}
-    </Menu>
-  </Sider>
-);
+        })}
+      </Menu>
+    </Sider>
+  );
+};
 
 export default Sidebar;
